@@ -1,10 +1,10 @@
 package com.modanisa.modaflickr.activity;
 
 import android.graphics.Matrix;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.ImageView;
 
@@ -12,14 +12,13 @@ import com.modanisa.flickrapiclient.entity.Photo;
 import com.modanisa.flickrapiclient.entity.Photos;
 import com.modanisa.flickrapiclient.entity.Result;
 import com.modanisa.modaflickr.R;
-import com.modanisa.modaflickr.receiver.NetworkStateChangeReceiver;
-import com.modanisa.modaflickr.util.EndlessRecyclerOnScrollListener;
 import com.modanisa.modaflickr.adapter.PhotoAdapter;
 import com.modanisa.modaflickr.flickr.FlickrClient;
+import com.modanisa.modaflickr.receiver.NetworkStateChangeReceiver;
+import com.modanisa.modaflickr.util.EndlessRecyclerOnScrollListener;
 import com.modanisa.modaflickr.util.EventRecyclerView;
 import com.modanisa.modaflickr.util.OnDetectScrollListener;
 import com.modanisa.modaflickr.util.ToastUtils;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,6 +34,7 @@ import retrofit2.Response;
 public class PrimaryActivity extends AppCompatActivity {
 
     public static float PARALLAX_VALUE = 2f;
+    public static final int PAGE_SIZE = 15;
 
     @BindView(R.id.recycler_photo_list)
     EventRecyclerView recyclerView;
@@ -77,7 +77,7 @@ public class PrimaryActivity extends AppCompatActivity {
         endlessListener = new EndlessRecyclerOnScrollListener(layoutManager){
             @Override
             public void onLoadMore() {
-                int current_page = adapter.getItemCount() / 15;
+                int current_page = adapter.getItemCount() / PAGE_SIZE;
                 loadPage(current_page + 1);
             }
         };
@@ -129,7 +129,7 @@ public class PrimaryActivity extends AppCompatActivity {
 
     private void loadPage(int page)
     {
-        FlickrClient.get().getPhotoListByTag("moda", 15, page, new Callback<Result<Photos>>() {
+        FlickrClient.get().getPhotoListByTag("moda", PAGE_SIZE, page, new Callback<Result<Photos>>() {
             @Override
             public void onResponse(Call<Result<Photos>> call, Response<Result<Photos>> response) {
                 if(response.isSuccessful())

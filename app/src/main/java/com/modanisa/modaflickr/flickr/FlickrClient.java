@@ -1,7 +1,6 @@
 package com.modanisa.modaflickr.flickr;
 
 import com.modanisa.flickrapiclient.FlickrApiClient;
-import com.modanisa.flickrapiclient.client.FlickrApi;
 
 /**
  * Created by canavar on 6/19/2016.

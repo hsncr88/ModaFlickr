@@ -1,7 +1,5 @@
 package com.modanisa.flickrapiclient.entity;
 
-import java.util.List;
-
 /**
  * Created by canavar on 6/19/2016.
  */
