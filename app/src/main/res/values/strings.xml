@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ModaFlickr</string>
+    <string name="failed_to_load">Failed to load. Check internet connection.</string>
+</resources>
